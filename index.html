@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepTrack — Placement Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Syne (display) + JetBrains Mono (data) + Mulish (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <!-- Brand -->
+      <a href="#" class="brand" aria-label="PrepTrack Home">
+        <span class="brand-icon" aria-hidden="true">◈</span>
+        <span class="brand-text">PrepTrack</span>
+      </a>
+
+      <!-- Search bar -->
+      <div class="nav-search" role="search">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          type="search"
+          id="globalSearch"
+          placeholder="Search topics, companies…"
+          aria-label="Search topics or companies"
+          autocomplete="off"
+        />
+      </div>
+
+      <!-- Nav actions -->
+      <div class="nav-actions">
+        <!-- Dark/Light toggle -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+          <span class="toggle-track" aria-hidden="true">
+            <span class="toggle-thumb"></span>
+          </span>
+          <span class="toggle-icon" id="themeIcon">☀</span>
+        </button>
+
+        <!-- Mobile hamburger -->
+        <button class="hamburger" id="hamburger" aria-label="Open mobile menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile search (shown below nav on small screens) -->
+    <div class="nav-search-mobile">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        id="globalSearchMobile"
+        placeholder="Search topics, companies…"
+        aria-label="Search topics or companies (mobile)"
+        autocomplete="off"
+      />
+    </div>
+  </nav>
+
+  <!-- ========== MAIN LAYOUT ========== -->
+  <div class="layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar navigation">
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <a href="#overview" class="sidebar-link active" data-section="overview">
+            <span class="slink-icon" aria-hidden="true">▦</span> Overview
+          </a>
+        </li>
+        <li>
+          <a href="#dsa" class="sidebar-link" data-section="dsa">
+            <span class="slink-icon" aria-hidden="true">◎</span> DSA Tracker
+          </a>
+        </li>
+        <li>
+          <a href="#goals" class="sidebar-link" data-section="goals">
+            <span class="slink-icon" aria-hidden="true">◇</span> Daily Goals
+          </a>
+        </li>
+        <li>
+          <a href="#companies" class="sidebar-link" data-section="companies">
+            <span class="slink-icon" aria-hidden="true">◈</span> Companies
+          </a>
+        </li>
+      </ul>
+
+      <!-- Sidebar footer stat -->
+      <div class="sidebar-footer">
+        <p class="sf-label">Overall Readiness</p>
+        <p class="sf-value" id="overallScore">—</p>
+        <div class="sf-bar-track">
+          <div class="sf-bar-fill" id="overallBar" style="width:0%"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content" id="mainContent">
+
+      <!-- ── SECTION: Overview ── -->
+      <section id="overview" class="section active" aria-label="Overview">
+        <header class="section-header">
+          <h1 class="section-title">Dashboard</h1>
+          <p class="section-sub">Track your placement preparation at a glance.</p>
+        </header>
+
+        <!-- Stat cards -->
+        <div class="cards-grid" role="list">
+          <article class="card card--amber" role="listitem">
+            <p class="card-label">Problems Solved</p>
+            <p class="card-value mono" id="statSolved">0</p>
+            <p class="card-sub">of 150 target</p>
+            <div class="card-bar-track"><div class="card-bar-fill" id="barSolved" style="width:0%"></div></div>
+          </article>
+
+          <article class="card card--teal" role="listitem">
+            <p class="card-label">Topics Mastered</p>
+            <p class="card-value mono" id="statTopics">0</p>
+            <p class="card-sub">of 12 core topics</p>
+            <div class="card-bar-track"><div class="card-bar-fill" id="barTopics" style="width:0%"></div></div>
+          </article>
+
+          <article class="card card--rose" role="listitem">
+            <p class="card-label">Goals Done Today</p>
+            <p class="card-value mono" id="statGoals">0</p>
+            <p class="card-sub" id="statGoalsSub">of 0 set</p>
+            <div class="card-bar-track"><div class="card-bar-fill" id="barGoals" style="width:0%"></div></div>
+          </article>
+
+          <article class="card card--indigo" role="listitem">
+            <p class="card-label">Companies Tracked</p>
+            <p class="card-value mono" id="statCompanies">0</p>
+            <p class="card-sub">prep profiles</p>
+            <div class="card-bar-track"><div class="card-bar-fill" id="barCompanies" style="width:0%"></div></div>
+          </article>
+        </div>
+
+        <!-- Quick tip banner -->
+        <div class="tip-banner" role="note" aria-label="Daily tip">
+          <span class="tip-tag">TIP</span>
+          <p class="tip-text" id="tipText">Loading your daily tip…</p>
+        </div>
+      </section>
+
+      <!-- ── SECTION: DSA Tracker ── -->
+      <section id="dsa" class="section" aria-label="DSA Tracker">
+        <header class="section-header">
+          <h2 class="section-title">DSA Progress Tracker</h2>
+          <p class="section-sub">Mark topics as you master them. Progress is saved automatically.</p>
+        </header>
+
+        <!-- Filter bar -->
+        <div class="filter-bar" role="group" aria-label="Filter DSA topics">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="done">Done ✓</button>
+          <button class="filter-btn" data-filter="pending">Pending</button>
+        </div>
+
+        <!-- DSA topic list -->
+        <ul class="dsa-list" id="dsaList" role="list" aria-label="DSA topics">
+          <!-- Populated by script.js -->
+        </ul>
+      </section>
+
+      <!-- ── SECTION: Daily Goals ── -->
+      <section id="goals" class="section" aria-label="Daily Goals">
+        <header class="section-header">
+          <h2 class="section-title">Daily Study Goals</h2>
+          <p class="section-sub">Set tasks for today. Check them off as you go.</p>
+        </header>
+
+        <!-- Add goal form -->
+        <div class="goal-input-row">
+          <input
+            type="text"
+            id="goalInput"
+            class="text-input"
+            placeholder="e.g. Solve 3 graph problems…"
+            maxlength="80"
+            aria-label="New goal text"
+          />
+          <button class="btn-primary" id="addGoalBtn" aria-label="Add goal">+ Add</button>
+        </div>
+
+        <!-- Goals list -->
+        <ul class="goals-list" id="goalsList" role="list" aria-label="Your goals">
+          <!-- Populated by script.js -->
+        </ul>
+
+        <!-- Empty state -->
+        <p class="empty-state" id="goalsEmpty" aria-live="polite">No goals yet — add one above!</p>
+      </section>
+
+      <!-- ── SECTION: Companies ── -->
+      <section id="companies" class="section" aria-label="Company Preparation">
+        <header class="section-header">
+          <h2 class="section-title">Company Preparation</h2>
+          <p class="section-sub">Track your readiness for each target company.</p>
+        </header>
+
+        <!-- Filter / search for companies -->
+        <div class="filter-bar" role="group" aria-label="Filter companies">
+          <button class="filter-btn active" data-company-filter="all">All</button>
+          <button class="filter-btn" data-company-filter="Product">Product</button>
+          <button class="filter-btn" data-company-filter="Service">Service</button>
+          <button class="filter-btn" data-company-filter="Startup">Startup</button>
+        </div>
+
+        <!-- Company cards grid -->
+        <ul class="company-grid" id="companyGrid" role="list" aria-label="Companies list">
+          <!-- Populated by script.js -->
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer" role="contentinfo">
+    <p>PrepTrack &mdash; Built for freshers, by a fresher. &copy; <span id="footerYear"></span></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
